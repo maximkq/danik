@@ -3,20 +3,22 @@ package easybudda.movingball;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import static java.awt.event.KeyEvent.*;
+
 public class MovingBall {
-    private static final int WIDTH = 480;
-    private static final int HEIGHT = 360;
-    private static final int DIAMETER = 20;
     private static final int FREQ = 10;
     private static final Color BACKGROUND_COLOR = Color.white;
 
 
     private int x4Pos = 140;
-    private final int y4Pos = 140;
+    private int y4Pos = 140;
 
     private final JPanel ballPanel;
 
@@ -35,7 +37,7 @@ public class MovingBall {
                 Image bambi;
                 try {
 
-                    bentley=ImageIO.read(new File("grass.jpg"));
+                    bentley=ImageIO.read(new File("photo_2022-07-20_16-57-13.jpg"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -47,20 +49,55 @@ public class MovingBall {
                 g.drawImage(bambi,x4Pos,y4Pos,this);
             }
         };
-        ballPanel.setOpaque(true);
-        ballPanel.setBackground(BACKGROUND_COLOR);
-
-        Timer timer = new Timer(FREQ, ae -> {
-
-
-ballPanel.repaint();
-        });
+        ballPanel.setFocusable(true);
+        ballPanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                switch (e.getKeyCode()){
+                    case KeyEvent.VK_W:
+                        if(y4Pos<=20){
+                            ballPanel.repaint();
+                        }
+                        else{
+                        y4Pos-=50;
+                        ballPanel.repaint();
+                        }
+                        break;
+                    case KeyEvent.VK_S:
+                        if(y4Pos>=520){
+                            ballPanel.repaint();
+                        }
+                        else{
+                        y4Pos+=50;
+                        ballPanel.repaint();
+                        }
+                        break;
+                    case KeyEvent.VK_A:
+                        if(x4Pos<=20){
+                            ballPanel.repaint();
+                        }
+                        else{
+                        x4Pos-=50;
+                        ballPanel.repaint();
+                        }
+                        break;
+                    case KeyEvent.VK_D:
+                        if(x4Pos>=720){
+                            ballPanel.repaint();
+                        }
+                        else{
+                        x4Pos+=50;
+                        ballPanel.repaint();
+                        }
+                        break;
+            }
+        }});
         JFrame mainFrame = new JFrame("Moving Ball");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.add(ballPanel);
         mainFrame.setSize(816, 639);
         mainFrame.setVisible(true);
-timer.start();
 
     }
 
