@@ -23,8 +23,14 @@ public class moving extends JPanel {
                             repaint();
                         }
                         else{
+                            if(e.isShiftDown()){
+                                yPos-=100;
+                                repaint();
+                            }
+                            else{
                             yPos-=50;
                             repaint();
+                            }
                         }
                         break;
                     case KeyEvent.VK_S:
@@ -33,8 +39,14 @@ public class moving extends JPanel {
                             repaint();
                         }
                         else{
+                            if(e.isShiftDown()){
+                                yPos+=100;
+                                repaint();
+                            }
+                            else{
                             yPos+=50;
                            repaint();
+                            }
                         }
                         break;
                     case KeyEvent.VK_A:
@@ -43,8 +55,14 @@ public class moving extends JPanel {
                            repaint();
                         }
                         else{
-                            xPos-=50;
-                           repaint();
+                            if(e.isShiftDown()){
+                                xPos-=100;
+                                repaint();
+                            }
+                            else {
+                                xPos -= 50;
+                                repaint();
+                            }
                         }
                         break;
                     case KeyEvent.VK_D:
@@ -53,8 +71,14 @@ public class moving extends JPanel {
                            repaint();
                         }
                         else{
-                            xPos+=50;
-                            repaint();
+                            if(e.isShiftDown()){
+                                xPos+=100;
+                                repaint();
+                            }
+                            else {
+                                xPos += 50;
+                                repaint();
+                            }
                         }
                         break;
                 }
